@@ -1,0 +1,88 @@
+.list {
+    list-style: none;  /* Прибираємо стандартні маркери списку */
+    padding: 0;        /* Прибираємо внутрішні відступи */
+    margin: 0; 
+    display: flex; 
+    flex-direction: column; 
+       
+  }
+  
+  .list li {
+    margin-bottom: 15px;  /* Відступ між елементами списку */
+    padding: 8px 0;       /* Відступи для елементів списку */
+    border-bottom: 1px solid #ccc; /* Лінія між елементами */
+  }
+  
+  .list li:last-child {
+    border-bottom: none; /* Прибираємо лінію для останнього елемента */
+  }
+  
+  .list a {
+    text-decoration: none;  /* Прибираємо підкреслення з посилання */
+    color: #e7e0d6;         /* Колір тексту посилання */
+    font-size: 1.1rem;      /* Розмір шрифта */
+    font-weight: 700;       /* Невеликий жирний шрифт */
+    transition: color 0.3s ease;  /* М'який перехід для зміни кольору */
+  }
+  
+  .list a:hover,
+  .list a:focus {
+    color: #0056b3;         /* Темніший колір при наведенні */
+    text-decoration: underline; /* Підкреслення при наведенні */
+  }
+
+  .poster {
+    display: none;
+  }
+  
+  @media (min-width: 480px) {
+    .list li {
+    padding: 0 20px;
+    }
+
+    .poster {
+      display: flex;
+      width: 250px;
+      height: auto;
+
+    }
+  }
+
+  @media (min-width: 728px) {
+    .list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        
+    }
+
+    .list li {
+       width: calc((100% - 40px) / 2);
+       padding: 0;
+  }
+  .poster {
+   width: 280px;
+   display: block; /* робимо зображення блоком, щоб забезпечити центрування */
+   margin-left: auto;  /* Центрування зображення по горизонталі */
+   margin-right: auto;
+    
+  }
+
+  .list li:last-child {
+    border-bottom: 1px solid #ccc; /* Прибираємо лінію для останнього елемента */
+  }
+}  
+  
+  @media (min-width: 1180px) {
+    .list li {
+      width: calc((100% - 15px) / 4);
+      gap: 5px;  
+   }
+   
+    .poster {
+        width: 150px;
+        height: 185px;
+    
+   }
+     
+   }
+  

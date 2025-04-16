@@ -1,0 +1,40 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%; 
+    max-width: 320px; 
+    padding: 20px;
+    box-sizing: border-box; 
+    margin: 0 auto; 
+    background: #2d4042;
+    padding: 20px;
+  }
+  
+  
+  h1 {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #98a995; 
+  }
+  
+  
+  @media (min-width: 728px) {
+    .container {
+      width: 100%; 
+      max-width: 728px;
+    }
+  
+    h1 {
+      font-size: 1.75rem; 
+  }
+}
+  
+  @media (min-width: 1180px) {
+    .container {
+      width: 100%; /* Контейнер займає майже всю ширину на дуже малих екранах */
+    }
+  
+    h1 {
+      font-size: 2.5rem; /* Зменшення шрифта для дуже малих екранів */
+    }
+  }
