@@ -1,15 +1,17 @@
 .container {
-    margin-top: 20px;
-  }
-  
-  .list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    list-style: none;
-    padding: 0;
-  }
-  
-  .item {
-    width: 150px;
-  }
+  margin-top: 20px;
+  color: blanchedalmond;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  list-style: none;
+  padding: 20px;
+}
+
+.item {
+  width: 200px;
+}

@@ -1,22 +1,20 @@
-import { Link, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import styles from './MovieList.module.css';
+import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import styles from "./MovieList.module.css";
 
 export default function MovieList({ movies }) {
   const location = useLocation();
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 480);
 
-  // Перевірка на зміну розміру екрану
   useEffect(() => {
     const handleResize = () => {
       setIsLargeScreen(window.innerWidth > 480);
     };
 
-    window.addEventListener('resize', handleResize);
-    
-    // Очистка події при розмонтажі компонента
+    window.addEventListener("resize", handleResize);
+
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
