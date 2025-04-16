@@ -1,19 +1,148 @@
 .container {
     padding: 20px;
+    margin: 0 auto;
+    background: #2d4042;
   }
   
   .backLink {
     display: inline-block;
     margin-bottom: 20px;
-    color: blue;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 24px;
+    transition: color 0.3s ease;
+  }
+  
+  .backLink:hover,
+  .backLink:focus {
+    color: #0056b3;
+    text-decoration: underline;
   }
   
   .movieDetails {
     display: flex;
+    flex-direction: column;
     gap: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    color: aliceblue;
+   
   }
   
-  .additionalInfo {
-    margin-top: 20px;
+  .movieDetails img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
   }
+  
+  .movieDetails div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+   
+   
+  }
+
+  .movieDetails ul {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    font-size: 18px;
+  }
+
+  .movieDetails h2 {
+    font-size: 28px;
+  }
+
+  .movieDetails h3 {
+    font-size: 24px;
+  }
+
+  .movieDetails h4 {
+    font-size: 20px;
+  }
+
+  .movieDetails p {
+    font-size: 18px;
+  }
+
+
+  
+  .additionalInfo {
+    margin-top: 30px;
+    color: aliceblue;
+  }
+  
+  .additionalInfo h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+  
+  .additionalInfo ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .additionalInfo li a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 18px;
+  }
+  
+  .additionalInfo li a:hover,
+  .additionalInfo li a:focus {
+    color: #0056b3;
+  }
+  
+  /* Адаптація для більших екранів */
+  @media screen and (min-width: 768px) {
+    .movieDetails {
+      flex-direction: row;
+      gap: 20px;
+     }
+  
+    .movieDetails img {
+      width: 300px;
+      height: auto;
+    }
+  
+    .movieDetails div {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+       
+      }
+
+      .movieDetails ul {
+        display: flex;
+       flex-direction: row;
+       gap: 20px;
+        font-size: 18px;
+      }
+    
+  
+      .additionalInfo {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 200px;
+      }
+
+      .additionalInfo h3,
+      .additionalInfo li a {
+         font-size: 24px;
+      }
+
+      .additionalInfo ul {
+      flex-direction: row;
+      gap: 20px;
+      
+
+    }
+  }
+
+ 
