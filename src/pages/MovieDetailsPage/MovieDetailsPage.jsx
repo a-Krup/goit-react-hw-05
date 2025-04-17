@@ -5,7 +5,12 @@ import styles from "./MovieDetailsPage.module.css";
 
 const TOKEN =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZThmOTgzNzU5YTRlY2Y1MzVmOTVlNzhhZjRhMDViNSIsIm5iZiI6MTc0NDYzMjk1OC4zMTgsInN1YiI6IjY3ZmNmYzdlNDM3ZjBiODBlZWFjZjhiMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4VB8_ZBztpYalbofVfqF1jxVPCdh3VkT99Y_zHIpQCg";
-const defaultImg = "https://via.placeholder.com/250x375?text=No+Poster";
+
+const fallbackPosters = [
+  "https://via.placeholder.com/250x375?text=No+Poster",
+  "https://placehold.co/250x375?text=Image+Not+Found",
+  "https://dummyimage.com/250x375/cccccc/000000&text=No+Image",
+];
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
@@ -39,21 +44,21 @@ export default function MovieDetailsPage() {
 
   const { title, poster_path, overview, genres, vote_average } = movie;
 
+  const getPosterImage = () => {
+    if (poster_path) {
+      return `https://image.tmdb.org/t/p/w500/${poster_path}`;
+    }
+    const randomIndex = Math.floor(Math.random() * fallbackPosters.length);
+    return fallbackPosters[randomIndex];
+  };
+
   return (
     <div className={styles.container}>
       <Link to={backLink.current} className={styles.backLink}>
         Go back
       </Link>
       <div className={styles.movieDetails}>
-        <img
-          src={
-            poster_path
-              ? `https://image.tmdb.org/t/p/w500/${poster_path}`
-              : defaultImg
-          }
-          alt={title}
-          width={250}
-        />
+        <img src={getPosterImage()} alt={title} width={250} />
         <div>
           <h2>{title}</h2>
           <p>User Score: {Math.round(vote_average * 10)}%</p>

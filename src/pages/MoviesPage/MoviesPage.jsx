@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import MovieList from "../../components/MovieList/MovieList";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
 import styles from "./MoviesPage.module.css";
 
 const TOKEN =
@@ -12,6 +13,9 @@ export default function MoviesPage() {
   const query = searchParams.get("query") || "";
   const [input, setInput] = useState(query);
   const [movies, setMovies] = useState([]);
+  const [notFound, setNotFound] = useState(false);
+  const navigate = useNavigate();
+  const timerRef = useRef(null);
 
   useEffect(() => {
     if (!query) return;
@@ -32,16 +36,35 @@ export default function MoviesPage() {
             },
           }
         );
-        setMovies(res.data.results);
+
+        const results = res.data.results;
+        setMovies(results);
+
+        if (results.length === 0) {
+          setNotFound(true);
+
+          timerRef.current = setTimeout(() => {
+            navigate("/");
+          }, 10000);
+        } else {
+          setNotFound(false);
+          setInput("");
+          clearTimeout(timerRef.current);
+        }
       } catch (err) {
         console.error("Error fetching search results:", err);
       }
     };
 
     fetchMovies();
-  }, [query]);
 
-  const handleChange = (e) => setInput(e.target.value);
+    return () => clearTimeout(timerRef.current);
+  }, [query, navigate]);
+
+  const handleChange = (e) => {
+    setInput(e.target.value);
+    clearTimeout(timerRef.current);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,7 +83,8 @@ export default function MoviesPage() {
         />
         <button type="submit">Search</button>
       </form>
-      <MovieList movies={movies} />
+
+      {notFound ? <NotFoundPage /> : <MovieList movies={movies} />}
     </div>
   );
 }

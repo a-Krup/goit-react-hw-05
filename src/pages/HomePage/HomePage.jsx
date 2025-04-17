@@ -8,31 +8,49 @@ const TOKEN =
 
 export default function HomePage() {
   const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [title, setTitle] = useState("");
+  const fullTitle = "Trending today";
 
   useEffect(() => {
-    const fetchTrending = async () => {
-      try {
-        const res = await axios.get(
-          "https://api.themoviedb.org/3/trending/movie/day",
-          {
-            headers: {
-              Authorization: `Bearer ${TOKEN}`,
-            },
-          }
-        );
-        setMovies(res.data.results);
-      } catch (err) {
-        console.error("Error fetching trending movies:", err);
-      }
-    };
+    let index = 0;
 
-    fetchTrending();
+    const interval = setInterval(() => {
+      const nextChar = fullTitle.charAt(index);
+      if (nextChar) {
+        setTitle((prev) => prev + nextChar);
+        index++;
+      } else {
+        clearInterval(interval);
+        fetchTrendingMovies();
+      }
+    }, 100);
+
+    return () => clearInterval(interval);
   }, []);
+
+  const fetchTrendingMovies = async () => {
+    try {
+      const res = await axios.get(
+        "https://api.themoviedb.org/3/trending/movie/day",
+        {
+          headers: {
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        }
+      );
+      setMovies(res.data.results);
+    } catch (err) {
+      console.error("Error fetching trending movies:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className={styles.container}>
-      <h1>Trending today</h1>
-      <MovieList movies={movies} />
+      <h1 className={styles.animatedTitle}>{title}</h1>
+      {isLoading ? <p>Loading movies...</p> : <MovieList movies={movies} />}
     </div>
   );
 }

@@ -5,7 +5,12 @@ import styles from "./MovieCast.module.css";
 
 const TOKEN =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZThmOTgzNzU5YTRlY2Y1MzVmOTVlNzhhZjRhMDViNSIsIm5iZiI6MTc0NDYzMjk1OC4zMTgsInN1YiI6IjY3ZmNmYzdlNDM3ZjBiODBlZWFjZjhiMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4VB8_ZBztpYalbofVfqF1jxVPCdh3VkT99Y_zHIpQCg";
-const defaultImg = "https://via.placeholder.com/100x150?text=No+Image";
+
+const fallbackAvatars = [
+  "https://via.placeholder.com/200x300?text=No+Photo",
+  "https://dummyimage.com/200x300/cccccc/000000&text=No+Face",
+  "https://placehold.co/200x300?text=Unknown+Actor",
+];
 
 export default function MovieCast() {
   const { movieId } = useParams();
@@ -33,21 +38,21 @@ export default function MovieCast() {
     fetchCast();
   }, [movieId]);
 
+  const getProfileImage = (path) => {
+    if (path) {
+      return `https://image.tmdb.org/t/p/w200${path}`;
+    }
+    const randomIndex = Math.floor(Math.random() * fallbackAvatars.length);
+    return fallbackAvatars[randomIndex];
+  };
+
   return (
     <div className={styles.container}>
       <h3>Cast</h3>
       <ul className={styles.list}>
         {cast.map(({ id, name, profile_path, character }) => (
           <li key={id} className={styles.item}>
-            <img
-              src={
-                profile_path
-                  ? `https://image.tmdb.org/t/p/w200${profile_path}`
-                  : defaultImg
-              }
-              alt={name}
-              width={200}
-            />
+            <img src={getProfileImage(profile_path)} alt={name} width={200} />
             <p>
               <strong>{name}</strong>
             </p>
